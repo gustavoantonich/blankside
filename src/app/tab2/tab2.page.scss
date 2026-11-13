@@ -1,0 +1,62 @@
+.galeria {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.foto-item {
+  position: relative;
+}
+
+.foto-item img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--ion-color-light);
+}
+
+.borrar {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  --padding-start: 4px;
+  --padding-end: 4px;
+}
+
+.cargando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  color: var(--ion-color-medium);
+}
+
+.vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+  padding: 24px;
+  color: var(--ion-color-medium);
+  text-align: center;
+}
+
+.vacio ion-icon {
+  margin-bottom: 12px;
+  font-size: 56px;
+}
+
+.vacio h2 {
+  margin: 0 0 8px;
+  color: var(--ion-color-dark);
+  font-size: 1.2rem;
+}
+
+.vacio p {
+  margin: 0;
+}

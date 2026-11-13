@@ -1,0 +1,91 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>BLANKSIDE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="explorar-header">
+    <h1>Explorar diseños</h1>
+    <p>Descubrí arte creado por artistas independientes.</p>
+  </div>
+
+  <!-- Estado de carga -->
+  @if (cargando) {
+    <div class="estado">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando diseños...</p>
+    </div>
+  }
+
+  <!-- Estado de error -->
+  @if (error) {
+    <div class="estado">
+      <h2>No se pudieron cargar los diseños</h2>
+      <p>Verificá tu conexión e intentá nuevamente.</p>
+
+      <ion-button (click)="cargarDisenos()">
+        Reintentar
+      </ion-button>
+    </div>
+  }
+
+  <!-- Catálogo -->
+  @if (!cargando && !error) {
+
+    @if (disenos.length > 0) {
+
+      <div class="catalogo">
+
+        @for (diseno of disenos; track diseno.id) {
+
+          <ion-card class="diseno-card">
+
+            <img
+              [src]="diseno.imagen"
+              [alt]="diseno.nombre"
+            />
+
+            <ion-card-header>
+              <ion-card-subtitle>
+                {{ diseno.artista }} · {{ diseno.categoria }}
+              </ion-card-subtitle>
+
+              <ion-card-title>
+                {{ diseno.nombre }}
+              </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <p>{{ diseno.descripcion }}</p>
+
+              <div class="precio">
+                {{ diseno.precio }} Gs.
+              </div>
+
+              @if (diseno.destacado) {
+                <span class="destacado">Destacado</span>
+              }
+
+            </ion-card-content>
+
+          </ion-card>
+
+        }
+
+      </div>
+
+    } @else {
+
+      <div class="estado">
+        <h2>No hay diseños disponibles</h2>
+        <p>Cuando se agreguen nuevos diseños, aparecerán aquí.</p>
+      </div>
+
+    }
+
+  }
+
+</ion-content>

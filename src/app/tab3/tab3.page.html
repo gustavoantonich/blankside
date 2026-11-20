@@ -1,13 +1,86 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tab3</ion-title>
+    <ion-title>Favoritos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">tab3</ion-title>
+      <ion-title size="large">Favoritos</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="favoritos-header">
+    <h1>Tus favoritos</h1>
+    <p>Los diseños que guardaste desde Explorar.</p>
+  </div>
+
+  @if (favoritos().length > 0) {
+
+    <div class="catalogo">
+
+      @for (diseno of favoritos(); track diseno.id) {
+
+        <ion-card class="diseno-card">
+
+          <img
+            [src]="diseno.imagen"
+            [alt]="diseno.nombre"
+          />
+
+          <ion-card-header>
+            <ion-card-subtitle>
+              {{ diseno.artista }} · {{ diseno.categoria }}
+            </ion-card-subtitle>
+
+            <ion-card-title>
+              {{ diseno.nombre }}
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p>{{ diseno.descripcion }}</p>
+
+            <div class="precio">
+              {{ diseno.precio }} Gs.
+            </div>
+
+            <ion-button
+              class="quitar"
+              size="small"
+              fill="clear"
+              color="danger"
+              (click)="quitarFavorito(diseno)"
+            >
+              <ion-icon slot="start" name="heart"></ion-icon>
+              Quitar
+            </ion-button>
+
+          </ion-card-content>
+
+        </ion-card>
+
+      }
+
+    </div>
+
+  } @else {
+
+    <div class="estado">
+      <ion-icon name="heart-outline"></ion-icon>
+      <h2>No hay favoritos todavía</h2>
+      <p>Tocá el corazón en un diseño de Explorar para guardarlo aquí.</p>
+    </div>
+
+  }
+
+  <ion-toast
+    [isOpen]="toastAbierto"
+    [message]="toastMensaje"
+    duration="1800"
+    (ionToastDidDismiss)="toastAbierto = false"
+  ></ion-toast>
+
 </ion-content>

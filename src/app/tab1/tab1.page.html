@@ -1,4 +1,3 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>BLANKSIDE</ion-title>
@@ -43,10 +42,26 @@
 
           <ion-card class="diseno-card">
 
-            <img
-              [src]="diseno.imagen"
-              [alt]="diseno.nombre"
-            />
+            <div class="imagen-card">
+              <img
+                [src]="diseno.imagen"
+                [alt]="diseno.nombre"
+              />
+
+              <ion-button
+                class="favorito"
+                size="small"
+                fill="clear"
+                [color]="esFavorito(diseno.id) ? 'danger' : 'light'"
+                [attr.aria-label]="esFavorito(diseno.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'"
+                (click)="toggleFavorito(diseno)"
+              >
+                <ion-icon
+                  slot="icon-only"
+                  [name]="esFavorito(diseno.id) ? 'heart' : 'heart-outline'"
+                ></ion-icon>
+              </ion-button>
+            </div>
 
             <ion-card-header>
               <ion-card-subtitle>
@@ -87,5 +102,12 @@
     }
 
   }
+
+  <ion-toast
+    [isOpen]="toastAbierto"
+    [message]="toastMensaje"
+    duration="1800"
+    (ionToastDidDismiss)="toastAbierto = false"
+  ></ion-toast>
 
 </ion-content>

@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +9,8 @@ import {
   IonToolbar,
   IonSpinner,
   IonButton,
+  IonIcon,
+  IonToast,
   IonCard,
   IonCardHeader,
   IonCardTitle,
@@ -18,6 +19,7 @@ import {
 } from '@ionic/angular';
 
 import { DisenosService, Diseno } from '../services/disenos.service';
+import { FavoritosService } from '../services/favoritos.service';
 
 @Component({
   selector: 'app-tab1',
@@ -30,6 +32,8 @@ import { DisenosService, Diseno } from '../services/disenos.service';
     IonToolbar,
     IonSpinner,
     IonButton,
+    IonIcon,
+    IonToast,
     IonCard,
     IonCardHeader,
     IonCardTitle,
@@ -44,8 +48,13 @@ export class Tab1Page implements OnInit {
   disenos: Diseno[] = [];
   cargando = true;
   error = false;
+  toastAbierto = false;
+  toastMensaje = '';
 
-  constructor(private disenosService: DisenosService) {}
+  constructor(
+    private disenosService: DisenosService,
+    private favoritosService: FavoritosService
+  ) {}
 
   ngOnInit() {
     this.cargarDisenos();
@@ -66,5 +75,18 @@ export class Tab1Page implements OnInit {
         this.cargando = false;
       }
     });
+  }
+
+  esFavorito(id: number): boolean {
+    return this.favoritosService.esFavorito(id);
+  }
+
+  toggleFavorito(diseno: Diseno): void {
+    const agregado = this.favoritosService.toggle(diseno);
+
+    this.toastMensaje = agregado
+      ? 'Diseño agregado a favoritos'
+      : 'Diseño quitado de favoritos';
+    this.toastAbierto = true;
   }
 }

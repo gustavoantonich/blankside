@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -41,15 +41,18 @@ import type { Foto } from '../services/fotos.service';
   ],
 })
 export class Tab2Page {
-  private readonly fotosService = inject(FotosService);
-
-  readonly fotos = toSignal(this.fotosService.fotos$, {
-    initialValue: [] as Foto[],
-  });
-  readonly cargando = toSignal(this.fotosService.cargando$, {
-    initialValue: true,
-  });
+  readonly fotos: Signal<Foto[]>;
+  readonly cargando: Signal<boolean>;
   readonly guardando = signal(false);
+
+  constructor(private fotosService: FotosService) {
+    this.fotos = toSignal(this.fotosService.fotos$, {
+      initialValue: [] as Foto[],
+    });
+    this.cargando = toSignal(this.fotosService.cargando$, {
+      initialValue: true,
+    });
+  }
 
   async tomarFoto(): Promise<void> {
     if (this.guardando()) {

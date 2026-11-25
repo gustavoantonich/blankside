@@ -25,17 +25,18 @@ const ARCHIVO_INDICE = `${CARPETA_FOTOS}/index.json`;
 const DIRECTORIO = Directory.Data;
 const VERSION_INDICE = 1;
 
-const FOTOS_INICIALES: FotoGuardada[] = Array.from({ length: 7 }, (_, i) => {
-  const numero = i + 1;
-  const url = `https://picsum.photos/seed/${numero}/600/600`;
-
-  return {
-    id: `inicial-${numero}`,
-    nombre: `foto_${numero}.jpg`,
-    url,
-    origen: 'remota' as const,
-  };
-});
+const FOTOS_INICIALES: FotoGuardada[] = [
+  'urbano',
+  'neon',
+  'espacio',
+  'naturaleza',
+  'retro',
+].map((nombre) => ({
+  id: `inicial-${nombre}`,
+  nombre: `${nombre}.svg`,
+  url: `assets/disenos/${nombre}.svg`,
+  origen: 'remota' as const,
+}));
 
 @Injectable({
   providedIn: 'root',
@@ -113,6 +114,12 @@ export class FotosService {
     }
 
     return agregadas;
+  }
+
+  /** Guarda un diseño ya leído como DataUrl (vista previa de productos). */
+  async guardarDiseno(dataUrl: string, nombre: string): Promise<Foto | null> {
+    await this.inicializar();
+    return this.guardarDataUrl(nombre || 'diseno', dataUrl, 'directorio');
   }
 
   /** Borra la imagen del disco (si tiene ruta y directorio) y de la lista. */

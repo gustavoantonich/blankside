@@ -1,0 +1,244 @@
+@if (tipo === 'camiseta') {
+  <svg viewBox="0 0 300 300" role="img" aria-label="Camiseta blanca con el diseño aplicado">
+    <defs>
+      <radialGradient [attr.id]="fondo" cx="50%" cy="32%" r="78%">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="1" stop-color="#e6eaee" />
+      </radialGradient>
+      <linearGradient [attr.id]="tela" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="0.42" stop-color="#fafbfc" />
+        <stop offset="0.78" stop-color="#eceff2" />
+        <stop offset="1" stop-color="#d8dde2" />
+      </linearGradient>
+      <linearGradient [attr.id]="brillo" x1="0" y1="0" x2="0.35" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.28" />
+        <stop offset="0.48" stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="1" stop-color="#1b2733" stop-opacity="0.2" />
+      </linearGradient>
+      <filter [attr.id]="sombra" x="-25%" y="-25%" width="150%" height="160%">
+        <feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#1b2733" flood-opacity="0.18" />
+      </filter>
+      <filter [attr.id]="textura" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+        <feComponentTransfer><feFuncA type="linear" slope="0.16" /></feComponentTransfer>
+      </filter>
+      <clipPath [attr.id]="clip">
+        <path d="M96 46 L124 34 Q150 61 176 34 L204 46 L246 88 L214 120 L196 100 L196 262 Q150 270 104 262 L104 100 L86 120 L54 88 Z" />
+      </clipPath>
+      <clipPath [attr.id]="impresion">
+        <path d="M106 82 Q150 97 194 82 L194 226 Q150 239 106 226 Z" />
+      </clipPath>
+    </defs>
+
+    <rect width="300" height="300" rx="18" [attr.fill]="'url(#' + fondo + ')'" />
+
+    <g [attr.filter]="'url(#' + sombra + ')'">
+      <path d="M96 46 L124 34 Q150 61 176 34 L204 46 L246 88 L214 120 L196 100 L196 262 Q150 270 104 262 L104 100 L86 120 L54 88 Z"
+            [attr.fill]="'url(#' + tela + ')'" stroke="#cdd2d8" stroke-width="1.4" />
+
+      <g [attr.clip-path]="'url(#' + clip + ')'">
+        <rect x="54" y="34" width="192" height="238" [attr.filter]="'url(#' + textura + ')'"
+              opacity="0.35" style="mix-blend-mode: multiply" />
+        <path d="M103 122 Q111 168 105 214 M197 118 Q189 166 196 216 M119 240 Q150 249 181 240"
+              fill="none" stroke="#ffffff" stroke-opacity="0.42" stroke-width="5" />
+        <path d="M110 116 Q103 170 111 222 M190 116 Q197 170 189 222"
+              fill="none" stroke="#1b2733" stroke-opacity="0.07" stroke-width="7" />
+      </g>
+
+      <g [attr.clip-path]="'url(#' + impresion + ')'">
+        <image [attr.href]="imagen" x="102" y="78" width="98" height="158"
+               preserveAspectRatio="xMidYMid slice" style="mix-blend-mode: multiply" opacity="0.96" />
+        <rect x="102" y="78" width="98" height="158" [attr.fill]="'url(#' + brillo + ')'"
+              opacity="0.55" style="mix-blend-mode: multiply" />
+      </g>
+
+      <path d="M124 34 Q150 62 176 34" fill="none" stroke="#b9c0c7" stroke-width="7" />
+      <path d="M124 34 Q150 58 176 34" fill="none" stroke="#ffffff" stroke-width="2.5" />
+      <path d="M246 88 L214 120 M54 88 L86 120" fill="none" stroke="#b9c0c7" stroke-width="4" />
+      <path d="M105 254 Q150 263 195 254" fill="none" stroke="#bdc4cb" stroke-width="2" />
+      <path d="M106 102 L106 252 M194 102 L194 252" fill="none" stroke="#1b2733" stroke-opacity="0.05" stroke-width="2" />
+    </g>
+  </svg>
+} @else if (tipo === 'funda') {
+  <svg viewBox="0 0 300 300" role="img" aria-label="Funda blanca con el diseño aplicado">
+    <defs>
+      <radialGradient [attr.id]="fondo" cx="50%" cy="32%" r="78%">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="1" stop-color="#e6eaee" />
+      </radialGradient>
+      <linearGradient [attr.id]="tela" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="0.55" stop-color="#f7f9fa" />
+        <stop offset="1" stop-color="#d9dee3" />
+      </linearGradient>
+      <linearGradient [attr.id]="brillo" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.32" />
+        <stop offset="0.5" stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="1" stop-color="#000000" stop-opacity="0.2" />
+      </linearGradient>
+      <filter [attr.id]="sombra" x="-30%" y="-25%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#1b2733" flood-opacity="0.2" />
+      </filter>
+      <clipPath [attr.id]="impresion">
+        <rect x="102" y="28" width="96" height="244" rx="18" />
+      </clipPath>
+    </defs>
+
+    <rect width="300" height="300" rx="18" [attr.fill]="'url(#' + fondo + ')'" />
+
+    <g [attr.filter]="'url(#' + sombra + ')'">
+      <rect x="94" y="21" width="112" height="258" rx="25" fill="#2a3038" />
+      <rect x="97" y="24" width="106" height="252" rx="22" [attr.fill]="'url(#' + tela + ')'" stroke="#c9cfd5" stroke-width="1.2" />
+
+      <g [attr.clip-path]="'url(#' + impresion + ')'">
+        <image [attr.href]="imagen" x="99" y="26" width="102" height="246"
+               preserveAspectRatio="xMidYMid slice" style="mix-blend-mode: multiply" />
+        <rect x="99" y="26" width="102" height="246" [attr.fill]="'url(#' + brillo + ')'"
+              style="mix-blend-mode: multiply" />
+        <path d="M110 28 L152 28 L114 272 L100 272 Z" fill="#ffffff" opacity="0.1" />
+      </g>
+
+      <rect x="102" y="28" width="96" height="244" rx="18" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.8" />
+      <rect x="92" y="92" width="4" height="36" rx="2" fill="#7c8691" />
+      <rect x="204" y="112" width="4" height="28" rx="2" fill="#7c8691" />
+
+      <rect x="108" y="34" width="52" height="52" rx="16" fill="#1d2228" stroke="#79828c" stroke-width="1.5" />
+      <circle cx="124" cy="50" r="10" fill="#0b0e12" stroke="#79828c" stroke-width="2" />
+      <circle cx="124" cy="50" r="4" fill="#23405f" />
+      <circle cx="145" cy="50" r="10" fill="#0b0e12" stroke="#79828c" stroke-width="2" />
+      <circle cx="145" cy="50" r="4" fill="#23405f" />
+      <circle cx="124" cy="71" r="8" fill="#0b0e12" stroke="#79828c" stroke-width="2" />
+      <circle cx="124" cy="71" r="3" fill="#23405f" />
+      <circle cx="147" cy="72" r="3.5" fill="#f6e8bb" />
+    </g>
+  </svg>
+} @else if (tipo === 'poster') {
+  <svg viewBox="0 0 300 300" role="img" aria-label="Poster con el diseño aplicado">
+    <defs>
+      <radialGradient [attr.id]="fondo" cx="50%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="1" stop-color="#e5e9ed" />
+      </radialGradient>
+      <linearGradient [attr.id]="brillo" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.18" />
+        <stop offset="0.55" stop-color="#ffffff" stop-opacity="0" />
+      </linearGradient>
+      <filter [attr.id]="sombra" x="-25%" y="-25%" width="150%" height="160%">
+        <feDropShadow dx="3" dy="7" stdDeviation="7" flood-color="#1b2733" flood-opacity="0.2" />
+      </filter>
+      <filter [attr.id]="textura" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="2" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+        <feComponentTransfer><feFuncA type="linear" slope="0.1" /></feComponentTransfer>
+      </filter>
+      <clipPath [attr.id]="impresion">
+        <rect x="72" y="42" width="148" height="196" rx="1" />
+      </clipPath>
+    </defs>
+
+    <rect width="300" height="300" rx="18" [attr.fill]="'url(#' + fondo + ')'" />
+
+    <g [attr.filter]="'url(#' + sombra + ')'">
+      <rect x="64" y="32" width="164" height="230" rx="2" fill="#ffffff" stroke="#d7dce1" stroke-width="1.2" />
+
+      <g [attr.clip-path]="'url(#' + impresion + ')'">
+        <image [attr.href]="imagen" x="72" y="42" width="148" height="196"
+               preserveAspectRatio="xMidYMid slice" style="mix-blend-mode: multiply" />
+        <rect x="72" y="42" width="148" height="196" [attr.fill]="'url(#' + brillo + ')'" />
+        <rect x="72" y="42" width="148" height="196" [attr.filter]="'url(#' + textura + ')'"
+              opacity="0.22" style="mix-blend-mode: multiply" />
+      </g>
+
+      <rect x="72" y="42" width="148" height="196" rx="1" fill="none" stroke="#e3e7ea" stroke-width="1" />
+      <path d="M72 42 L118 42 L72 132 Z" fill="#ffffff" opacity="0.09" />
+      <path d="M72 246 H220" stroke="#eceff2" stroke-width="1.5" />
+    </g>
+  </svg>
+} @else if (tipo === 'taza') {
+  <svg viewBox="0 0 300 300" role="img" aria-label="Taza blanca con el diseño aplicado">
+    <defs>
+      <radialGradient [attr.id]="fondo" cx="50%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="1" stop-color="#e5e9ed" />
+      </radialGradient>
+      <linearGradient [attr.id]="tela" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#c8cfd6" />
+        <stop offset="0.22" stop-color="#ffffff" />
+        <stop offset="0.72" stop-color="#f6f8f9" />
+        <stop offset="1" stop-color="#b9c1c9" />
+      </linearGradient>
+      <linearGradient [attr.id]="brillo" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.36" />
+        <stop offset="0.62" stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="1" stop-color="#1b2733" stop-opacity="0.22" />
+      </linearGradient>
+      <filter [attr.id]="sombra" x="-25%" y="-25%" width="150%" height="170%">
+        <feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#1b2733" flood-opacity="0.18" />
+      </filter>
+      <clipPath [attr.id]="impresion">
+        <path d="M74 84 H206 V214 Q206 249 140 249 Q74 249 74 214 Z" />
+      </clipPath>
+    </defs>
+
+    <rect width="300" height="300" rx="18" [attr.fill]="'url(#' + fondo + ')'" />
+    <ellipse cx="150" cy="262" rx="90" ry="9" fill="#1b2733" opacity="0.1" />
+
+    <g [attr.filter]="'url(#' + sombra + ')'">
+      <path d="M204 112 Q264 108 264 156 Q264 204 204 200" fill="none" stroke="#bcc4cc" stroke-width="23" stroke-linecap="round" />
+      <path d="M204 112 Q258 110 258 156 Q258 198 204 196" fill="none" stroke="#f9fbfc" stroke-width="14" stroke-linecap="round" />
+
+      <path d="M72 82 H208 V214 Q208 250 140 250 Q72 250 72 214 Z"
+            [attr.fill]="'url(#' + tela + ')'" stroke="#c2cad1" stroke-width="1.2" />
+
+      <g [attr.clip-path]="'url(#' + impresion + ')'">
+        <image [attr.href]="imagen" x="72" y="82" width="136" height="168"
+               preserveAspectRatio="xMidYMid slice" style="mix-blend-mode: multiply" opacity="0.96" />
+        <rect x="72" y="82" width="136" height="168" [attr.fill]="'url(#' + brillo + ')'"
+              style="mix-blend-mode: multiply" />
+      </g>
+
+      <ellipse cx="140" cy="82" rx="68" ry="13" fill="#fbfcfd" stroke="#c2cad1" stroke-width="1.3" />
+      <ellipse cx="140" cy="83" rx="59" ry="8" fill="#dfe4e8" />
+      <path d="M88 98 Q92 168 102 224" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="5" />
+      <path d="M196 100 Q192 168 182 224" fill="none" stroke="#1b2733" stroke-opacity="0.08" stroke-width="7" />
+    </g>
+  </svg>
+} @else {
+  <svg viewBox="0 0 300 300" role="img" aria-label="Sticker con el diseño aplicado">
+    <defs>
+      <radialGradient [attr.id]="fondo" cx="50%" cy="30%" r="80%">
+        <stop offset="0" stop-color="#ffffff" />
+        <stop offset="1" stop-color="#e5e9ed" />
+      </radialGradient>
+      <linearGradient [attr.id]="brillo" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff" stop-opacity="0.32" />
+        <stop offset="0.55" stop-color="#ffffff" stop-opacity="0" />
+      </linearGradient>
+      <filter [attr.id]="sombra" x="-25%" y="-25%" width="150%" height="160%">
+        <feDropShadow dx="2" dy="8" stdDeviation="8" flood-color="#1b2733" flood-opacity="0.2" />
+      </filter>
+      <clipPath [attr.id]="impresion">
+        <path d="M150 40 C206 40 250 78 250 138 C250 198 206 246 150 258 C94 246 50 198 50 138 C50 78 94 40 150 40 Z" />
+      </clipPath>
+    </defs>
+
+    <rect width="300" height="300" rx="18" [attr.fill]="'url(#' + fondo + ')'" />
+
+    <g [attr.filter]="'url(#' + sombra + ')'">
+      <path d="M150 28 C214 28 262 72 262 138 C262 206 214 258 150 270 C86 258 38 206 38 138 C38 72 86 28 150 28 Z"
+            fill="#ffffff" stroke="#ffffff" stroke-width="12" />
+
+      <g [attr.clip-path]="'url(#' + impresion + ')'">
+        <image [attr.href]="imagen" x="48" y="38" width="204" height="222"
+               preserveAspectRatio="xMidYMid slice" style="mix-blend-mode: multiply" />
+        <rect x="48" y="38" width="204" height="222" [attr.fill]="'url(#' + brillo + ')'" />
+      </g>
+
+      <path d="M150 40 C206 40 250 78 250 138 C250 198 206 246 150 258 C94 246 50 198 50 138 C50 78 94 40 150 40 Z"
+            fill="none" stroke="#ccd2d8" stroke-width="1.5" />
+      <path d="M70 92 Q86 52 132 44" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round" />
+    </g>
+  </svg>
+}

@@ -14,11 +14,13 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonCardContent
+  IonCardContent,
+  IonBadge
 } from '@ionic/angular';
 
 import { FavoritosService } from '../services/favoritos.service';
-import { Diseno } from '../services/disenos.service';
+import { Diseno } from '../models/diseno';
+import { ProductoPreviewComponent } from '../components/producto-preview/producto-preview.component';
 
 @Component({
   selector: 'app-tab3',
@@ -37,7 +39,9 @@ import { Diseno } from '../services/disenos.service';
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
-    CommonModule
+    IonBadge,
+    CommonModule,
+    ProductoPreviewComponent
   ],
 })
 export class Tab3Page {

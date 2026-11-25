@@ -25,10 +25,12 @@
 
         <ion-card class="diseno-card">
 
-          <img
-            [src]="diseno.imagen"
-            [alt]="diseno.nombre"
-          />
+          <div class="preview-card">
+            <app-producto-preview
+              [imagen]="diseno.imagen"
+              [producto]="diseno.producto"
+            />
+          </div>
 
           <ion-card-header>
             <ion-card-subtitle>
@@ -42,6 +44,10 @@
 
           <ion-card-content>
             <p>{{ diseno.descripcion }}</p>
+
+            @if (diseno.propio) {
+              <ion-badge color="success">Tu diseño</ion-badge>
+            }
 
             <div class="precio">
               {{ diseno.precio }} Gs.

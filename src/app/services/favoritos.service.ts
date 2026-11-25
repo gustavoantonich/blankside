@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { Diseno } from './disenos.service';
+import { Diseno } from '../models/diseno';
 
 const CLAVE_STORAGE = 'blankside_favoritos';
 

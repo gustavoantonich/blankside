@@ -5,47 +5,73 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">BLANKSIDE</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
   <div class="explorar-header">
     <h1>Explorar diseños</h1>
-    <p>Descubrí arte creado por artistas independientes.</p>
+    <p>Elegí un producto y mirá cómo queda el arte aplicado.</p>
   </div>
 
-  <!-- Estado de carga -->
-  @if (cargando) {
+  <div class="filtros">
+    <ion-searchbar
+      [value]="termino()"
+      (ionInput)="onBusqueda($event)"
+      placeholder="Buscar diseño, artista o tag"
+      showClearButton="always"
+    ></ion-searchbar>
+
+    <ion-segment
+      [value]="productoActivo()"
+      (ionChange)="onProducto($event)"
+      scrollable
+    >
+      @for (opcion of segmentos; track opcion) {
+        <ion-segment-button [value]="opcion">
+          {{ opcion === 'todos' ? 'Todos' : opcion }}
+        </ion-segment-button>
+      }
+    </ion-segment>
+  </div>
+
+  @if (cargando()) {
     <div class="estado">
       <ion-spinner name="crescent"></ion-spinner>
       <p>Cargando diseños...</p>
     </div>
   }
 
-  <!-- Estado de error -->
-  @if (error) {
+  @if (error()) {
     <div class="estado">
       <h2>No se pudieron cargar los diseños</h2>
       <p>Verificá tu conexión e intentá nuevamente.</p>
-
-      <ion-button (click)="cargarDisenos()">
-        Reintentar
-      </ion-button>
+      <ion-button (click)="cargarDisenos()">Reintentar</ion-button>
     </div>
   }
 
-  <!-- Catálogo -->
-  @if (!cargando && !error) {
-
-    @if (disenos.length > 0) {
-
+  @if (!cargando() && !error()) {
+    @if (disenos().length === 0) {
+      <div class="estado">
+        <h2>No hay diseños disponibles</h2>
+        <p>Cuando se agreguen nuevos diseños, aparecerán aquí.</p>
+      </div>
+    } @else if (sinResultados()) {
+      <div class="estado">
+        <h2>Sin resultados</h2>
+        <p>Probá con otra búsqueda o categoría.</p>
+        <ion-button (click)="limpiarFiltros()">Limpiar filtros</ion-button>
+      </div>
+    } @else {
       <div class="catalogo">
-
-        @for (diseno of disenos; track diseno.id) {
-
+        @for (diseno of disenosFiltrados(); track diseno.id) {
           <ion-card class="diseno-card">
-
-            <div class="imagen-card">
-              <img
-                [src]="diseno.imagen"
-                [alt]="diseno.nombre"
+            <div class="preview-card">
+              <app-producto-preview
+                [imagen]="diseno.imagen"
+                [producto]="diseno.producto"
               />
 
               <ion-button
@@ -67,40 +93,34 @@
               <ion-card-subtitle>
                 {{ diseno.artista }} · {{ diseno.categoria }}
               </ion-card-subtitle>
-
-              <ion-card-title>
-                {{ diseno.nombre }}
-              </ion-card-title>
+              <ion-card-title>{{ diseno.nombre }}</ion-card-title>
             </ion-card-header>
 
             <ion-card-content>
               <p>{{ diseno.descripcion }}</p>
 
-              <div class="precio">
-                {{ diseno.precio }} Gs.
+              <div class="etiquetas">
+                <ion-badge color="primary">{{ diseno.producto }}</ion-badge>
+                @if (diseno.propio) {
+                  <ion-badge color="success">Tu diseño</ion-badge>
+                }
+                @if (diseno.destacado) {
+                  <ion-badge color="warning">Destacado</ion-badge>
+                }
               </div>
 
-              @if (diseno.destacado) {
-                <span class="destacado">Destacado</span>
-              }
+              <div class="tags">
+                @for (tag of diseno.tags; track tag) {
+                  <ion-chip color="light">{{ tag }}</ion-chip>
+                }
+              </div>
 
+              <div class="precio">{{ diseno.precio }} Gs.</div>
             </ion-card-content>
-
           </ion-card>
-
         }
-
       </div>
-
-    } @else {
-
-      <div class="estado">
-        <h2>No hay diseños disponibles</h2>
-        <p>Cuando se agreguen nuevos diseños, aparecerán aquí.</p>
-      </div>
-
     }
-
   }
 
   <ion-toast
@@ -109,5 +129,4 @@
     duration="1800"
     (ionToastDidDismiss)="toastAbierto = false"
   ></ion-toast>
-
 </ion-content>
